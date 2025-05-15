@@ -154,6 +154,7 @@ const ListadoMascotas = () => {
                 <table style={tablaEstilo}>
                     <thead>
                     <tr>
+                        <th style={thEstilo}>id</th>
                         <th style={thEstilo}>Nombre</th>
                         <th style={thEstilo}>Raza</th>
                         <th style={thEstilo}>Color</th>
@@ -167,6 +168,7 @@ const ListadoMascotas = () => {
                     <tbody>
                     {mascotas.map((m, i) => (
                         <tr key={m.mascota_id} style={i % 2 === 0 ? filaPar : {}}>
+                        <td style={tdEstilo}>{m.mascota_id}</td>
                         <td style={tdEstilo}>{m.nombre}</td>
                         <td style={tdEstilo}>{m.raza}</td>
                         <td style={tdEstilo}>{m.color}</td>
