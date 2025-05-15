@@ -16,6 +16,20 @@ class Mascotas {
   
       return { success: true, mascotas};
     }
+
+    async agregar(data) {
+        const res = await this.api.post(`/mascotas/`, { ...data });
+    
+        if (!res.ok) {
+          return { success: false, message: 'Error en la conexión', error: res.error };
+        }
+    
+        const mascotas = res.data;
+
+        console.log(mascotas)
+    
+        return { success: true, mascotas};
+      }
 }
 
 export default Mascotas;

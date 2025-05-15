@@ -40,6 +40,7 @@ function Login() {
     }
 
     localStorage.setItem('token', JSON.stringify(res.token));
+    localStorage.setItem('user_id', JSON.stringify(res.id));
     navigate('/');
   };
 

@@ -19,7 +19,7 @@ class Login {
         return { success: false, message: 'Usuario no encontrado' };
       }
   
-      return { success: true, message: usuarios.mensaje, token: usuarios.token };
+      return { success: true, message: usuarios.mensaje, token: usuarios.token, id: usuarios.usuario_id };
     }
 }
 

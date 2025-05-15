@@ -33,7 +33,7 @@ function App() {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             PetApp
           </Typography>
-          <Button color="inherit" component={Link} to="/">Registrar Mascota</Button>
+          <Button color="inherit" component={Link} to="/agregarmacota">Registrar Mascota</Button>
           <Button color="inherit" component={Link} to="/extravio">Reportar Extravío</Button>
           <Button color="inherit" component={Link} to="/notificaciones">Notificaciones</Button>
           <Button color="inherit" component={Link} to="/hallazgo">Reportar Hallazgo</Button>
