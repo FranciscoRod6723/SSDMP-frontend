@@ -8,15 +8,12 @@ import {
   Alert
 } from '@mui/material';
 import { Controllers } from '../controllers';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
-function CrearUsuario() {
+function Login() {
   const [form, setForm] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    ubicacion: '',
     password: '',
+    email: '',
   });
 
   const navigate = useNavigate();
@@ -34,42 +31,29 @@ function CrearUsuario() {
     setMensaje(null);
     setError(null);
 
-    console.log(1)
-    
-    const res = await controllers.users.singup.register({...form})
+    const res = await controllers.users.login.login({...form})
+
+    console.log(res)
 
     if(!res.success) {
       alert(res.message);
-      return;
     }
 
-    const reslogin = await controllers.users.login.login({ email: form.email, password: form.password })
-
-    console.log(reslogin)
-
-    if(!reslogin.success) {
-      alert(reslogin.message);
-    }
-
-    localStorage.setItem('token', JSON.stringify(reslogin.token));
+    localStorage.setItem('token', JSON.stringify(res.token));
     navigate('/');
-
   };
 
   return (
     <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: 'auto', mt: 8 }}>
       <Typography variant="h5" gutterBottom>
-        Crear Usuario
+        Login
       </Typography>
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
-          <TextField name="nombre" label="Nombre" onChange={handleChange} value={form.nombre} required fullWidth />
           <TextField name="email" label="Correo Electrónico" type="email" onChange={handleChange} value={form.email} required fullWidth />
           <TextField name="password" label="Contraseña" onChange={handleChange} value={form.password} required fullWidth />
-          <TextField name="telefono" label="Teléfono" onChange={handleChange} value={form.telefono} required fullWidth />
-          <TextField name="ubicacion" label="Ubicación" onChange={handleChange} value={form.ubicacion} required fullWidth />
-          <Link to="/login">Logueate</Link>
-          <Button variant="contained" type="submit">Crear Usuario</Button>
+          <Link to="/sigup">Crea tu cuenta</Link>
+          <Button variant="contained" type="submit">login</Button>
           {mensaje && <Alert severity="success">{mensaje}</Alert>}
           {error && <Alert severity="error">{error}</Alert>}
         </Stack>
@@ -78,4 +62,4 @@ function CrearUsuario() {
   );
 }
 
-export default CrearUsuario;
+export default Login;
