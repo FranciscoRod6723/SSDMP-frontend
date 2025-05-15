@@ -4,13 +4,24 @@ const apiURL =  {
 }
 
 class Api {
-  constructor(environment = 'dev') {
+  constructor(environment = 'dev', token = '') {
     this.baseURL = apiURL[environment] || apiURL.dev;
+    this.token = token;
+  }
+
+  _getHeaders(customHeaders = {}) {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+      ...customHeaders,
+    };
   }
 
   async get(endpoint) {
     try {
-      const response = await fetch(this.baseURL + endpoint);
+      const response = await fetch(this.baseURL + endpoint, {
+        headers: this._getHeaders(),
+      });
       if (!response.ok) throw new Error(`Error GET: ${response.status}`);
       const data = await response.json();
       return { ok: true, data };
@@ -19,12 +30,12 @@ class Api {
     }
   }
 
-  async post(endpoint, body = {}, headers = { 'Content-Type': 'application/json' }) {
+  async post(endpoint, body = {}) {
     try {
       const response = await fetch(this.baseURL + endpoint, {
         method: 'POST',
-        headers,
         body: JSON.stringify(body),
+        headers: this._getHeaders(),
       });
       if (!response.ok) throw new Error(`Error POST: ${response.status}`);
       const data = await response.json();
@@ -34,15 +45,35 @@ class Api {
     }
   }
 
-  async put(endpoint, body = {}, headers = { 'Content-Type': 'application/json' }) {
+  async put(endpoint, body = {}) {
     try {
       const response = await fetch(this.baseURL + endpoint, {
         method: 'PUT',
-        headers,
+        headers: this._getHeaders(),
         body: JSON.stringify(body),
       });
       if (!response.ok) throw new Error(`Error PUT: ${response.status}`);
       const data = await response.json();
+      return { ok: true, data };
+    } catch (error) {
+      return { ok: false, error: error.message };
+    }
+  }
+
+  async delete(endpoint) {
+    try {
+      const response = await fetch(this.baseURL + endpoint, {
+        method: 'DELETE',
+        headers: this._getHeaders(),
+      });
+      if (!response.ok) throw new Error(`DELETE error: ${response.status}`);
+      // Si la respuesta no tiene body, solo retornamos ok:true
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        // no body
+      }
       return { ok: true, data };
     } catch (error) {
       return { ok: false, error: error.message };

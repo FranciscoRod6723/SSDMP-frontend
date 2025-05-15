@@ -7,7 +7,10 @@ export default function RegistrarMascota() {
   const [form, setForm] = useState({
     nombre: '',
     raza: '',
-    edad: 0
+    edad: 0,
+    ubicacion: '',
+    color: '',
+    estado: '',
   });
 
   const navigate = useNavigate();
@@ -43,9 +46,11 @@ export default function RegistrarMascota() {
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
           <TextField name='nombre' label="Nombre de la mascota" variant="outlined" onChange={handleChange} value={form.nombre} required fullWidth />
-          <TextField name='tipo' label="Tipo" variant="outlined" onChange={handleChange} value={form.tipo} required fullWidth />
           <TextField name="raza" label="Raza" variant="outlined" onChange={handleChange} value={form.raza} required fullWidth />
           <TextField name="edad" label="Edad" type="number" variant="outlined" onChange={handleChange} value={form.edad} required fullWidth />
+          <TextField name='color' label="Color" variant="outlined" onChange={handleChange} value={form.color} required fullWidth />
+          <TextField name='estado' label="Estado" variant="outlined" onChange={handleChange} value={form.estado} required fullWidth />
+          <TextField name='ubicacion' label="Ubicacion" variant="outlined" onChange={handleChange} value={form.ubicacion} required fullWidth />
           <Button variant="contained" type="submit">Registrar</Button>
           {mensaje && <Alert severity="success">{mensaje}</Alert>}
           {error && <Alert severity="error">{error}</Alert>}
