@@ -5,9 +5,15 @@ import {
   Button,
   Typography,
   Stack,
-  Alert
+  Alert,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 import { Controllers } from '../controllers';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 
 function CrearUsuario() {
@@ -18,6 +24,7 @@ function CrearUsuario() {
     ubicacion: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const controllers = Controllers('dev');
@@ -65,7 +72,23 @@ function CrearUsuario() {
         <Stack spacing={2}>
           <TextField name="nombre" label="Nombre" onChange={handleChange} value={form.nombre} required fullWidth />
           <TextField name="email" label="Correo Electrónico" type="email" onChange={handleChange} value={form.email} required fullWidth />
-          <TextField name="password" label="Contraseña" onChange={handleChange} value={form.password} required fullWidth />
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel htmlFor="password">Contraseña</InputLabel>
+            <OutlinedInput
+              name="password" label="Contraseña" onChange={handleChange} value={form.password} required fullWidth
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <TextField name="telefono" label="Teléfono" onChange={handleChange} value={form.telefono} required fullWidth />
           <TextField name="ubicacion" label="Ubicación" onChange={handleChange} value={form.ubicacion} required fullWidth />
           <Link to="/login">Logueate</Link>
