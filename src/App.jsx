@@ -31,7 +31,7 @@ function App() {
       <AppBar position="static" color="primary">
         <Toolbar sx={{ gap: 2 }}>
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }} component={Link} to="/">
-            PetApp
+            PawTrack
           </Typography>
           <Button color="inherit" component={Link} to="/agregarmacota">Registrar Mascota</Button>
           <Button color="inherit" component={Link} to="/extravio">Reportar Extravío</Button>
